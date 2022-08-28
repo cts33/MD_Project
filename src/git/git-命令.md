@@ -9,6 +9,8 @@ git stash apply
 git stash apply stash@{0}
 
 git stash drop stash@{0}
+git stash drop stash@{0}
 
+git clean -f -d  
 
 ```
