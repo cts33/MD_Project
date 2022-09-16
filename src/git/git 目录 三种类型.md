@@ -1,21 +1,26 @@
 
 # 1.git目录
-当在一个新目录或已有目录执行 git init 时，Git 会创建一个 .git 目录。 这个目录包含了几乎所有 Git 存储
+当在一个新目录或已有目录执行 git init 时，Git 会创建一个 .git 目录。 这个目录包含了 Git 存储
 和操作的东西。
 每一个仓库下都有一个.git文件夹，这里面存放项目所有配置数据和所要管理的数据。重要的有几个文件，HEAD config objects refs
 ![img.png](img.png)
-description 文件仅供 GitWeb 程序使用，我们无需关心。 config 文件包含项目特有的配置
-选项。 info 目录包含一个全局性排除（global exclude）文件， 用以放置那些不希望被记录在 .gitignore
-文件中的忽略模式（ignored patterns）。 hooks 目录包含客户端或服务端的钩子脚本（hook scripts），
+- description 文件仅供 GitWeb 程序使用。 
+- config 文件包含项目特有的配置 选项。 
+- info 目录包含一个全局性排除（global exclude）文件， 用以放置那些不希望被记录在 
+- .gitignore 文件中的忽略模式（ignored patterns）。 
+- hooks 目录包含客户端或服务端的钩子脚本（hook scripts），
 
 剩下的四个条目很重要：HEAD 文件、（尚待创建的）index 文件，和 objects 目录、refs 目录。 它们都是
-Git 的核心组成部分。 objects 目录存储所有数据内容；refs 目录存储指向数据（分支、远程仓库和标签等）
-的提交对象的指针； HEAD 文件指向目前被检出的分支；index 文件保存暂存区信息。
+Git 的核心组成部分。 
+- objects 目录存储所有数据内容；
+- refs 目录存储指向数据（分支、远程仓库和标签等）的提交对象的指针； 
+- HEAD 文件指向目前被检出的分支；
+- index 文件保存暂存区信息。
 
 Git 是一个内容寻址文件系统.Git 的核心部分是一个简单的键值
 对数据库（key-value data store）。 你可以向 Git 仓库中插入任意类型的内容，它会返回一个唯一的键，通过
 该键可以在任意时刻再次取回该内容。
-可以通过底层命令 git hash-object 来演示上述效果——该命令可将任意数据保存于 .git/objects 目录
+可以通过底层命令 `git hash-object` 来演示上述效果——该命令可将任意数据保存于 .git/objects 目录
 （即 对象数据库），并返回指向该数据对象的唯一的键。
 git hash-object 会接受你传给它的东西，而它只会返回可以存储在 Git 仓库中的唯
 一键.此命令输出一个长度为 40 个字符的校验和。 这是一个 SHA-1 哈希值——一个将待存储的数据外加一个头部信息
