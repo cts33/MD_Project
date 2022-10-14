@@ -80,6 +80,7 @@ implementation 'com.linkedin.dexmaker:dexmaker-mockito:2.12.1'
 android.Manifest.permission.ACCESS_WIFI_STATE
 android.Manifest.permission.OVERRIDE_WIFI_CONFIG
 
+java.lang.SecurityException:App not allowed to read or update stored WiFi Ap config
 ```java
 java.lang.SecurityException:App not allowed to read or update stored WiFi Ap config(uid=1000)
         at android.os.Parcel.readException(Parcel.java:2004)
