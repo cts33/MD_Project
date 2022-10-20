@@ -1,5 +1,5 @@
 最近调研需要开发Android 9.0的WiFi 热点，要求能够打开和关闭热点，及获取热点信息（名称和密码）。
-但是热点模块属于系统级api，第三方应用无法直接获取，还好app可以为系统级应用，可以直接获取api来执行，
+但是热点模块属于系统级api，第三方应用无法直接获取，还好我的app可以设置为系统级应用，可以直接获取api来执行，
 但是如果不是系统级应用，需要通过反射来处理。
 
 ### 1.打开wifi热点
@@ -23,7 +23,7 @@
         }
 ```
 
-该逻辑有个 OnStartTetheringCallback，需要实例化class 对象，这里借助三分框架来做的。
+该逻辑有个 OnStartTetheringCallback，需要实例化class 对象，这里借助第三方框架来做的。
 implementation 'com.linkedin.dexmaker:dexmaker-mockito:2.12.1'
 
 ### 2.关闭wifi热点
@@ -101,7 +101,7 @@ context.registerReceiver(
 ```
 ### 6.关于如何把普通应用改为系统应用
 之前也以为在清单文件里设置android:sharedUserId=“android.uid.system” 就可以改为系统应用，其实不是这样的。
-系统app和普通app最大的区别在于签名，系统应用使用rom的签名
+系统app和普通app最大的区别在于签名，系统应用使用rom的签名；如何使用系统签名打包，问百度即可
 
 ### 7. 修改系统权限设置
 
