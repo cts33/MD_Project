@@ -51,7 +51,7 @@ Android 系统架构分为五层，从上到下依次是
 
 ![image-20221020151622415](.\image-20221020151622415.png)
 
-![image-20221020151705357](C:\Users\cts\AppData\Roaming\Typora\typora-user-images\image-20221020151705357.png)
+![image-20221020151705357](.\image-20221020151705357.png)
 
 ### 1.2.3 应用框架层部分
 
