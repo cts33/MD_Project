@@ -208,7 +208,7 @@ Zygote 处理SystemServer 进程
 在2.2 节中讲到了Zygote 进程启动了SystemServer 进程， 本节来学习Zygote 是如何处
 理SystemServer 进程的，时序图如图2 -2 所示。
 
-![img.png](img.png)
+![img.png](images/img.png)
 
 
 2.3.3 SystemServer 进程总结
@@ -236,5 +236,5 @@ SystemServer 进程被创建后，主要做了如下工作：
 S ystemServer 进程在启动的过程中会启动PackageManagerService, PackageManagerService
 启动后会将系统中的应用程序安装完成。在此前已经启动的AMS 会将Launcher 启动起来。
 
-![img_1.png](img_1.png)
+![img_1.png](images/img_1.png)
 
