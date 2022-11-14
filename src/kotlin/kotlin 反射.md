@@ -140,7 +140,9 @@ fun <A : Any> toMap(a: A): Map<String, Any?> {
 }
 ```
 
-## 3. KCallable
+## 3. KCallable 可调用的对象
+
+class中的属性和方法 构造函数都是callable对象。他们都可以调用。
 
  KMutableProperty extends KProperty extends KCallable
 
@@ -431,3 +433,12 @@ for (c in Person::class.members) {
 **/
 ```
 
+
+
+## 获取实例对象
+
+## 获取实例方法
+
+## 获取实例属性
+
+## 获取实例属性
