@@ -44,18 +44,13 @@ fun maxSubArray(nums: IntArray): Int {
 }
 
 fun merge(nums1: IntArray, m: Int, nums2: IntArray, n: Int): Unit {
-    val xArray = IntArray(m + n)
 
-    for (item in 0 until m) {
-        xArray[item] = nums1[item]
-    }
     for (item in 0 until n) {
-        xArray[item + m] = nums2[item]
+        nums1[item+m] = nums2[item]
     }
+    Arrays.sort(nums1)
 
-    Arrays.sort(xArray)
-    for (item in xArray) {
-
+    for (item in nums1) {
         System.out.println("----${item}")
     }
 }
