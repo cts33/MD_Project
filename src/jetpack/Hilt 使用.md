@@ -26,7 +26,7 @@
 
 类可通过以下三种方式获取所需的对象：
 
-1. 通过构造函数传入对象的方式。eg: A a = new A(B)
+1. `类内部构造其所需的依赖项` 
 2. 从其他地方抓取。某些 Android API（如 `Context` getter 和 `getSystemService()`）的工作原理便是如此。
 3. 以参数形式提供。应用可以在`构造类时提供这些依赖项`，或者将这些依赖项传入需要各个依赖项的函数。在以上示例中，`Car` 构造函数将接收 `Engine` 作为参数。
 
@@ -57,15 +57,11 @@ Android 中有两种主要的依赖项注入方式：
 
 
 
-
-
 ## 1.2 依赖项注入的替代方法
-
-
 
 依赖项注入的替代方法是使用[服务定位器](https://en.wikipedia.org/wiki/Service_locator_pattern)。服务定位器设计模式还改进了类与具体依赖项的分离。您可以创建一个名为服务定位器的类，该类创建和存储依赖项，然后按需提供这些依赖项。
 
-```
+```kotlin
 object ServiceLocator {
     fun getEngine(): Engine = Engine()
 }
@@ -102,16 +98,16 @@ Hilt 在热门 DI 库 [Dagger](https://developer.android.com/training/dependency
 
 
 
-# 1.概念
+# 2.必备知识
 
 
 
 Hilt （刀把）是 Android 的依赖项注入库，专门面向Android的依赖注入框架。可减少在项目中执行手动依赖项注入的样板代码。执行手动依赖项注入要求您手动构造每个类及其依赖项，并借助容器重复使用和管理依赖项。
 
-Hilt 通过为项目中的每个 Android 类提供容器并自动管理其生命周期，提供了一种在应用中使用 DI（依赖项注入）的标准方法
+Hilt 通过`为项目中的每个 Android 类提供容器并自动管理其生命周期`，提供了一种在应用中`使用 DI（依赖项注入）`的标准方法
 
-依赖注入的英文名是`Dependency Injection，简称DI`。DI的最大作用就是解耦。本质其实在开发程序这块模块清晰，底层还是需要代码逻辑来去支撑的，只不过通过这种技术把一些依赖关系给封装了而已。
-## 1.1 MVVM
+依赖注入的英文名是`Dependency Injection，简称DI`。`DI的最大作用就是解耦。本质其实在开发程序这块模块清晰，底层还是需要代码逻辑来去支撑的`，只不过通过这种技术把一些依赖关系给封装了而已。
+## 2.1 MVVM
 Android在复杂项目中，对象之间的依赖关系也十分可怕，所以Android如果依赖注入也能使项目结构更清晰。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/106b03130b15455592c6d564eac6b176.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NoZW50YWlzaGFu,size_16,color_FFFFFF,t_70)
 谷歌推荐MVVM 架构来搭建Android应用。
@@ -119,9 +115,9 @@ Android在复杂项目中，对象之间的依赖关系也十分可怕，所以A
 - Activity/Fragment属于UI，View层
 - ViewModel属于Viewmodel层，是View 和Model的交互的桥梁。和MVP模式很类似。
 - Reponsitory属于Model层，主要提供数据来源，主要以网络和数据库为主。
-## 1.2 Dagger2
+## 2.2 Dagger2
 Dagger（匕首）Dagger2也是依赖注入的框架，国内使用的不是太多。Dagger1前期是Square维护，主要以反射技术实现，但是反射很性能方面的问题。后期Google开始维护Dagger2，使用编译时期生成对象之间的各种依赖关系，这样编译期就可以知道报错信息，性能更好。Hilt是基于Dagger2之上做的进一步升级，所以学习Hilt学习下Dagger2的内容。
-# 2 使用
+# 3 使用
 
 ## 1.添加依赖项
 
@@ -151,7 +147,7 @@ compileOptions {
     targetCompatibility JavaVersion.VERSION_1_8
   }
 ```
-## 1、@HiltAndroidApp
+## 2、@HiltAndroidApp
 所有使用 Hilt 的应用都必须包含一个带有 @HiltAndroidApp 注释的 Application 类。
 
 `@HiltAndroidApp` 会触发 Hilt 的代码生成操作，生成的代码包括应用的一个基类，该基类充当应用级依赖项容器。
@@ -178,7 +174,7 @@ BroadcastReceiver
 
 
 
-## 2、@AndroidEntryPoint、@Inject
+## 3、@AndroidEntryPoint、@Inject
 
 在 Application 类中设置了 Hilt 且有了应用级组件后，Hilt 可以为带有 @AndroidEntryPoint 注释的其他 Android 类提供依赖项：
 
@@ -208,7 +204,7 @@ public class ExampleActivity extends AppCompatActivity {
 ```
 @AndroidEntryPoint注入的类的基类不能是抽象类。
 
-## 3、 带参数的@Inject
+## 4、 带参数的@Inject
 
 ```java
 @AndroidEntryPoint
@@ -238,13 +234,13 @@ public class Address {
 ```
 MainActivity---》User--->Address
 搞明白他们之间的依赖关系。
-# 3.Hilt 模块   
+# 4.Hilt 模块   
 
 有时，类型不能通过构造函数注入。发生这种情况可能有多种原因。例如，您不能通过构造函数注入接口。此外，您也不能通过构造函数注入不归您所有的类型，如来自外部库的类
 
 
 
-### @Module   @InstallIn
+## 1.@Module   @InstallIn
 
  @Module 注释的类代表是一个Hilt模块，它会告知 Hilt 如何提供某些类型的实例。且必须使用 @InstallIn 为 Hilt 模块添加注释，以告知 Hilt 每个模块将用在或安装在哪个 Android 类中。其实就是说明@module作用到什么范围。
 
@@ -298,7 +294,7 @@ public class GasEngine implements Engine{
 
 
 
-### 使用 @Binds 注入接口实例
+## 2.使用 @Binds 注入接口实例
 
 以 `AnalyticsService` 为例。如果 `AnalyticsService` 是一个接口，则您无法通过构造函数注入它，而应向 Hilt 提供绑定信息，方法是在 Hilt 模块内创建一个带有 `@Binds` 注解的抽象函数。
 
@@ -333,7 +329,7 @@ abstract class AnalyticsModule {
 
 Hilt 模块 `AnalyticsModule` 带有 `@InstallIn(ActivityComponent.class)` 注解，因为您希望 Hilt 将该依赖项注入 `ExampleActivity`。此注解意味着，`AnalyticsModule` 中的所有依赖项都可以在应用的所有 activity 中使用。
 
-### 使用 @Provides 注入实例
+## 3.使用 @Provides 注入实例
 
 接口不是无法通过构造函数注入类型的唯一一种情况。`如果某个类不归您所有`（因为它来自外部库，如 [Retrofit](https://square.github.io/retrofit/)、[`OkHttpClient`](https://square.github.io/okhttp/) 或 [Room 数据库](https://developer.android.com/topic/libraries/architecture/room?hl=zh-cn)等类），或者必须使用[构建器模式](https://en.wikipedia.org/wiki/Builder_pattern)创建实例，也无法通过构造函数注入。
 
@@ -364,7 +360,7 @@ object AnalyticsModule {
 
 
 
-### 为同一类型提供多个绑定 @Qualifier     -------限定符
+## 4.为同一类型提供多个绑定  @Qualifier     ----限定符
 
 如果您需要让 Hilt 以依赖项的形式`提供同一类型的不同实现`，必须向 Hilt 提供多个绑定。您可以使用限定符为同一类型定义多个绑定。
 
@@ -451,7 +447,7 @@ class ExampleActivity: AppCompatActivity() {
 }
 ```
 
-### Hilt 中的预定义限定符
+## 5、Hilt 中的预定义限定符
 
 Hilt 提供了一些预定义的限定符。例如，由于您可能需要来自应用或 activity 的 `Context` 类，因此 Hilt 提供了 `@ApplicationContext` 和 `@ActivityContext` 限定符
 
@@ -465,7 +461,7 @@ class AnalyticsAdapter @Inject constructor(
 
 
 
-# 4.为 Android 类生成的组件
+# 5.为 Android 类生成的组件
 
 执行字段注入的每个 Android 类，都有一个关联的 Hilt 组件，您可以在 @InstallIn 注释中引用该组件。每个 Hilt 组件负责将其绑定注入相应的 Android 类。Hilt 不会为广播接收器生成组件，因为 Hilt 直接从 ApplicationComponent (SingletonComponent)注入广播接收器。
 
@@ -473,17 +469,17 @@ class AnalyticsAdapter @Inject constructor(
 
 ![](img/hilt-2.jpg)
 
-## 4.组件生命周期
+## 1.组件生命周期
 
 ![](img/hilt-3.jpg)
 
 
-## 5.组件作用域
+## 2 组件作用域
 
 默认情况下，Hilt 中的所有绑定都未限定作用域。这意味着，每当应用请求绑定时，Hilt 都会创建所需类型的一个新实例。
 ![image-20230321160501974](img\hilt-1.png)
 
-## 6.组件层次结构
+## 3.组件层次结构
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/0e4183f9a29f45e181cda3e71174cdc9.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NoZW50YWlzaGFu,size_16,color_FFFFFF,t_70)
 简单来讲，就是对某个类声明了某种作用域注解之后，这个注解的箭头所能指到的地方，都可以对该类进行依赖注入，同时在该范围内共享同一个实例。
